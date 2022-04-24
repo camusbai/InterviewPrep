@@ -15,5 +15,20 @@ public class MainClass {
         Thread my = new Thread(new MyRunnable(), "MyRunnable");
         my.run();
         my.start();
+
+        Runnable run1 = () -> {
+            for (int i = 0; i < 10; i++) {
+                System.out.print(i + 1 + " - Daemon " + Thread.currentThread().isDaemon() + " ");
+                System.out.println("Runnable defined as lambda " + Thread.currentThread().getName());
+            }
+        };
+        Thread thread1 = new Thread(run1);
+        thread1.setDaemon(true);
+        thread1.start();
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
