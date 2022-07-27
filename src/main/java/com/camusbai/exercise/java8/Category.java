@@ -6,4 +6,12 @@ public class Category {
     public String getSubCategory(){
         return subCategory;
     }
+
+    class Entry2{
+
+    }
+}
+
+class Entry{
+
 }

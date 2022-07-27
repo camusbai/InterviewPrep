@@ -10,6 +10,10 @@ public class All {
         System.out.println(convertToString(~8));
         System.out.println(convertToString(-1));
         System.out.println(convertToString(Integer.MIN_VALUE));
+        System.out.println(convertToString(Integer.MIN_VALUE << 1));
+        System.out.println(convertToString(1073741824));
+        System.out.println(1073741824 << 1);
+        System.out.println(1);
         System.out.println(convertToString(Integer.MAX_VALUE));
         Map<String, String> map = new HashMap<>();
         map.put("S", "S");

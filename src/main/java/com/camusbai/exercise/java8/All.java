@@ -5,14 +5,30 @@ import com.sun.org.slf4j.internal.LoggerFactory;
 import org.junit.Assert;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.lang.Double.NaN;
 
 public class All {
     private static Logger log = LoggerFactory.getLogger(All.class);
 
     public static void main(String[] args) {
+        testAccessModifierPrivate();
+
+        canYouUseArrayAsMapKey();
+
+        double x = NaN;
+
+        testForLoop();
+
+        new Animal().getBehavior()
+                .stream().filter(String::isEmpty).collect(Collectors.toList());
+
+        System.out.println(null==null);
+
+        canNullBePushedToStack();
+
         canNullBeAddedToList();
 //        doesBigDecimalSubtractMutateCaller();
 
@@ -25,6 +41,17 @@ public class All {
         monkey.getCategory().getSubCategory();
     }
 
+    private static void testAccessModifierPrivate() {
+        ClassWithPrivateField obj = new ClassWithPrivateField();
+//        obj.intField;   // cannot access
+    }
+
+    private static void canYouUseArrayAsMapKey() {
+        Map<Integer[], Integer> map = new HashMap<>();
+        map.put(new Integer[]{1, 2}, 1);
+        System.out.println(map.containsKey(new Integer[]{1, 2}));
+    }
+
     private static void doesBigDecimalSubtractMutateCaller() {
         BigDecimal number1 = new BigDecimal(3);
         BigDecimal number2 = new BigDecimal(5);
@@ -34,6 +61,12 @@ public class All {
 
         final String summary = "Summary: calling 'number1.subtract(number2)' won't change number1 value";
         System.out.println(summary);
+    }
+
+    private static  void canNullBePushedToStack(){
+        Stack<Integer> s = new Stack<>();
+        s.push(null);
+        System.out.println("Yes, no exception thrown");
     }
 
     private static void canNullBeAddedToList() {
@@ -61,5 +94,16 @@ public class All {
 
     private static void sthThrowsException(){
         throw new RuntimeException("This is message in exception");
+    }
+
+    private static void testForLoop() {
+        for (int i = 1; i < 1; i++) {
+            System.out.println("loop run");
+        }
+    }
+
+    private static void arrayList() {
+        List<Integer> list = new ArrayList<>();
+        list.set(0, 1);
     }
 }

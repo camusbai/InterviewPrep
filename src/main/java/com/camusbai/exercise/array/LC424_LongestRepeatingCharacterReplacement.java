@@ -4,7 +4,7 @@ import java.util.*;
 
 public class LC424_LongestRepeatingCharacterReplacement {
     public static void main(String[] args) {
-        int result = characterReplacement("EOEMQLLQTRQDDCOERARHGAAARRBKCCMFTDAQOLOKARBIJBISTGNKBQGKKTALSQNFSABASNOPBMMGDIOETPTDICRBOMBAAHINTFLH", 7);
+        int result = characterReplacement2("EOEMQLLQTRQDDCOERARHGAAARRBKCCMFTDAQOLOKARBIJBISTGNKBQGKKTALSQNFSABASNOPBMMGDIOETPTDICRBOMBAAHINTFLH", 7);
         System.out.println(result);
     }
 
@@ -70,5 +70,24 @@ public class LC424_LongestRepeatingCharacterReplacement {
         }
         maxLength = Math.min(maxLength, s.length());
         return maxLength;
+    }
+
+    public static int characterReplacement2(String s, int k) {
+        int maxLen = 0;
+        int maxFreq = 0;
+        Map<Character, Integer> charCount = new HashMap<>();
+        int lIdx = 0, rIdx = 0;
+        for (; rIdx < s.length(); rIdx++) {
+            char rChar = s.charAt(rIdx);
+            charCount.put(rChar, charCount.getOrDefault(rChar, 0) + 1);
+            maxFreq = Math.max(maxFreq, charCount.get(rChar));
+            while (rIdx - lIdx + 1 - maxFreq > k) {
+                char lChar = s.charAt(lIdx);
+                charCount.put(lChar, charCount.get(lChar) - 1);
+                lIdx++;
+            }
+            maxLen = Math.max(maxLen, rIdx - lIdx + 1);
+        }
+        return maxLen;
     }
 }
